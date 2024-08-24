@@ -42,6 +42,11 @@ class GoRouterGenerator extends Generator {
     }
 
     return <String>[
+      '''
+List<RouteBase> get \$appRoutes => [
+${getters.map((String e) => "$e,").join('\n')}
+    ];
+''',
       ...values,
     ].join('\n\n');
   }
