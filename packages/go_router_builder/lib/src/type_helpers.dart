@@ -44,8 +44,21 @@ const List<_TypeHelper> _helpers = <_TypeHelper>[
 /// Returns the decoded [String] value for [element], if its type is supported.
 ///
 /// Otherwise, throws an [InvalidGenerationSourceError].
-String decodeParameter(ParameterElement element, Set<String> pathParameters) {
+String decodeParameter(
+  ParameterElement element,
+  Set<String> pathParameters, {
+  bool isForFromStateCtor = false,
+}) {
   if (element.isExtraField) {
+    if (isForFromStateCtor) {
+      if (!element.type.isNullableType) {
+        throw InvalidGenerationSourceError(
+          'The extra parameter of type ${element.type.getDisplayString(withNullability: true)} must be nullable',
+          element: element,
+        );
+      }
+      return '\$extra is ${element.type.getDisplayString(withNullability: true)} ? \$extra : null';
+    }
     return 'state.${_stateValueAccess(element, pathParameters)}';
   }
 

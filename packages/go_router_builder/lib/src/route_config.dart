@@ -240,7 +240,11 @@ class GoRouteConfig extends RouteBaseConfig {
 
   String get _fromStateConstructor {
     final ParameterElement? extraParam = _extraParam;
-    final StringBuffer buffer = StringBuffer('{ return ');
+    final StringBuffer buffer = StringBuffer('{\n');
+    if (extraParam != null) {
+      buffer.writeln(r'final $extra = state.extra;');
+    }
+    buffer.write('return ');
     if (_ctor.isConst &&
         _ctorParams.isEmpty &&
         _ctorQueryParams.isEmpty &&
@@ -271,7 +275,11 @@ class GoRouteConfig extends RouteBaseConfig {
         );
       }
     }
-    final String fromStateExpression = decodeParameter(element, _pathParams);
+    final String fromStateExpression = decodeParameter(
+      element,
+      _pathParams,
+      isForFromStateCtor: true,
+    );
 
     if (element.isPositional) {
       return '$fromStateExpression,';
