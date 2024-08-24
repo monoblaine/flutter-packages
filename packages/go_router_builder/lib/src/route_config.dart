@@ -239,11 +239,12 @@ class GoRouteConfig extends RouteBaseConfig {
       .singleWhereOrNull((ParameterElement element) => element.isExtraField);
 
   String get _fromStateConstructor {
+    final ParameterElement? extraParam = _extraParam;
     final StringBuffer buffer = StringBuffer('=>');
     if (_ctor.isConst &&
         _ctorParams.isEmpty &&
         _ctorQueryParams.isEmpty &&
-        _extraParam == null) {
+        extraParam == null) {
       buffer.writeln('const ');
     }
 
@@ -251,7 +252,7 @@ class GoRouteConfig extends RouteBaseConfig {
     for (final ParameterElement param in <ParameterElement>[
       ..._ctorParams,
       ..._ctorQueryParams,
-      if (_extraParam != null) _extraParam!,
+      if (extraParam != null) extraParam,
     ]) {
       buffer.write(_decodeFor(param));
     }
