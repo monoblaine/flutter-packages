@@ -263,7 +263,7 @@ class GoRouteConfig extends RouteBaseConfig {
 
   String get _fromStateConstructor {
     final ParameterElement? extraParam = _extraParam;
-    final StringBuffer buffer = StringBuffer('=>');
+    final StringBuffer buffer = StringBuffer('{ return ');
     if (_ctor.isConst &&
         _ctorParams.isEmpty &&
         _ctorQueryParams.isEmpty &&
@@ -279,7 +279,7 @@ class GoRouteConfig extends RouteBaseConfig {
     ]) {
       buffer.write(_decodeFor(param));
     }
-    buffer.writeln(');');
+    buffer.writeln(');}');
 
     return buffer.toString();
   }
