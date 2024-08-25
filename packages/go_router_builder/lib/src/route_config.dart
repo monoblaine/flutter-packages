@@ -312,6 +312,7 @@ class GoRouteConfig extends RouteBaseConfig {
       element,
       _pathParams,
       isForFromStateCtor: true,
+      className: _className,
     );
 
     if (element.isPositional) {
