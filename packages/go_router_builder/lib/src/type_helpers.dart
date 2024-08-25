@@ -48,6 +48,7 @@ String decodeParameter(
   ParameterElement element,
   Set<String> pathParameters, {
   bool isForFromStateCtor = false,
+  String? className,
 }) {
   if (element.isExtraField) {
     if (isForFromStateCtor) {
@@ -57,7 +58,10 @@ String decodeParameter(
           element: element,
         );
       }
-      return '\$extra is ${element.type.getDisplayString(withNullability: true)} ? \$extra : null';
+
+      /// This code expects the following line in all route files with "$extra"s:
+      /// typedef TExtraMyRouteClassName = MyExtraValueType?;
+      return '\$extra is TExtra$className ? \$extra : null';
     }
     return 'state.${_stateValueAccess(element, pathParameters)}';
   }
