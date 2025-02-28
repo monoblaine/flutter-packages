@@ -500,4 +500,10 @@ NS_INLINE CGFloat radiansToDegrees(CGFloat radians) {
   [_player removeObserver:self forKeyPath:@"rate"];
 }
 
+- (void)detachPlayer {
+}
+
+- (void)reattachPlayer {
+}
+
 @end

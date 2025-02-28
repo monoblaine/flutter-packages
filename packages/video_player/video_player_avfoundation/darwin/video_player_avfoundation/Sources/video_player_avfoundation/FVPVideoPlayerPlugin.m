@@ -61,6 +61,7 @@
         return instance->_playersByIdentifier[playerIdentifier];
       }];
   [registrar registerViewFactory:factory withId:@"plugins.flutter.dev/video_player_ios"];
+  [registrar addApplicationDelegate:instance];
 #endif
   SetUpFVPAVFoundationVideoPlayerApi(registrar.messenger, instance);
 }
@@ -122,6 +123,16 @@
   [textureBasedPlayer expectFrame];
 
   return playerIdentifier;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication*)application {
+  [self.playersByIdentifier.allValues
+    makeObjectsPerformSelector:@selector(detachPlayer)];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication*)application {
+  [self.playersByIdentifier.allValues
+    makeObjectsPerformSelector:@selector(reattachPlayer)];
 }
 
 // This function, although slightly modified, is also in camera_avfoundation.

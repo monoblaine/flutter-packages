@@ -51,6 +51,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// so the channel is going to die or is already dead.
 - (void)disposeSansEventChannel;
 
+- (void)detachPlayer;
+
+- (void)reattachPlayer;
+
 /// Sets the volume of the video player.
 - (void)setVolume:(double)volume;
 

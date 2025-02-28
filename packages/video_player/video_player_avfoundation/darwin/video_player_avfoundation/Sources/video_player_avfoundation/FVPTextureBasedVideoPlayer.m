@@ -158,6 +158,16 @@
   _onDisposed(self.frameUpdater.textureIdentifier);
 }
 
+- (void)detachPlayer {
+  [super detachPlayer];
+  _playerLayer.player = nil;
+}
+
+- (void)reattachPlayer {
+  [super reattachPlayer];
+  _playerLayer.player = self.player;
+}
+
 #pragma mark - FlutterTexture
 
 - (CVPixelBufferRef)copyPixelBuffer {
